@@ -37,7 +37,7 @@ The library function loads an R library such as the tidyverse, providing access 
 
 ### Task 1: The console
 
-**Task** In the console (look below), type 2+2 and hit enter. What does it return? Type your answer below. **Answer: 4**
+**Task** In the console (look below), type 2+2 and hit enter. What does it return? Type your answer below. **Answer:**
 
 ### Task 2: Variables
 
@@ -55,14 +55,14 @@ number * number
 
 What does it return? Type your answer below:
 
-**Answer: 4**
+**Answer:** 4
 
 ### Task 3: Install packages
 
 **Task** In the console, run the following code to install the Tidyverse:
 
 ```{r}
-#install.packages('tidyverse')
+install.packages('tidyverse')
 ```
 
 **Task** Add that
@@ -70,7 +70,7 @@ What does it return? Type your answer below:
 Then run the following code to install the rmarkdown library
 
 ```{r}
-#install.packages('rmarkdown')
+install.packages('rmarkdown')
 ```
 
 ### Task 4: Load libraries
@@ -113,7 +113,7 @@ In the space below, write the data type for the "id" column and the "seats" colu
 head(umd_courses)
 ```
 
-In the space below, write the name of the business from the first row of the "name" column. **Answer**
+In the space below, write the name of the course from the first row of the "title" column. **Answer**
 
 ### Task 8: Explore data with interactive dataframe
 
@@ -164,7 +164,7 @@ umd_courses |>
   summarise(
     count_classes = n()
   ) |>
-  arrange(term, department)
+  arrange(desc(count_classes))
 ```
 
 Compared to the previous codeblock, how did the output change and what in the code changed it?
@@ -177,7 +177,7 @@ Compared to the previous codeblock, how did the output change and what in the co
 
 ```{r}
 umd_courses |>
-  group_by(term) |>
+  group_by(term, department) |>
   summarise(
     count_classes = n(),
     total_seats = sum(seats)
