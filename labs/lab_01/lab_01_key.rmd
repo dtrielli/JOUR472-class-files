@@ -42,32 +42,31 @@ umd_courses <- read_rds("lab_01.rds")
 **Q1** Which department has the highest mean (average) number of seats for its classes? You need to show the department with the highest average first. Which one is the most surprising/interesting to you? **A1** Engineering, Cooperative Education, with 306.66 seats
 
 ```{r}
-umd_courses |> 
+q1 <- umd_courses |> 
   group_by(department) |> 
-  summarize(mean_seats = mean(seats)) |> 
-  arrange(desc(mean_seats))
+  summarize(mean_seats_a = mean(seats)) |> 
+  arrange(desc(mean_seats_a))
 ```
 
 **Q2** Find out the greatest number of times any individual class has been offered in our dataset. You must show the greatest number of classes first. **A2** There are more than 150 that have been offered 22 times each.
 
 ```{r}
-umd_courses |> 
+clownshoes <- umd_courses |> 
   group_by(id) |> 
-  summarize(classes = n()) |> 
-  arrange(desc(classes))
+  summarize(clownshoes = n()) |> 
+  arrange(desc(clownshoes))
 ```
 
 **Q3** Count the number of courses for each instructor and department. Which instructor has taught the most? **A3** Keith Yearwood of Geographical Sciences, with 61.
 
 ```{r}
-umd_courses |> 
+yearwood <- umd_courses |> 
   group_by(instructors, department) |> 
   summarize(courses = n()) |> 
   arrange(desc(courses))
 ```
 
 **Q4** Given the results for Q3, what would have made it easier to find the answer? You don't have to know *how* to accomplish this; I want you to describe in words what would make the answer easier to see. **A4** It would be useful to remove the rows where `instructors` was NA so that you only see records where there are instructors populated in the data.
-
 
 ```{r}
 umd_courses |> 
