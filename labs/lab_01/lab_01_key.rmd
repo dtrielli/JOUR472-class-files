@@ -39,8 +39,7 @@ umd_courses <- read_rds("lab_01.rds")
 
 ## Answer questions
 
-**Q1** Which department has the highest mean (average) number of seats for its classes? You need to show the department with the highest average first. Which one is the most surprising/interesting to you?
-**A1** Engineering, Cooperative Education, with 306.66 seats
+**Q1** Which department has the highest mean (average) number of seats for its classes? You need to show the department with the highest average first. Which one is the most surprising/interesting to you? **A1** Engineering, Cooperative Education, with 306.66 seats
 
 ```{r}
 umd_courses |> 
@@ -68,6 +67,14 @@ umd_courses |>
 ```
 
 **Q4** Given the results for Q3, what would have made it easier to find the answer? You don't have to know *how* to accomplish this; I want you to describe in words what would make the answer easier to see. **A4** It would be useful to remove the rows where `instructors` was NA so that you only see records where there are instructors populated in the data.
+
+
+```{r}
+umd_courses |> 
+  group_by(instructors, department) |> 
+  summarize(courses = n()) |> 
+  arrange(desc(courses)) |> na.omit()
+```
 
 **Q5** Take one of the questions you listed in the final question of the pre_lab and try to answer it here in code. If you don't know how to fully answer it, write what code you can and describe in words what else you would need to do. If you got an answer, is it interesting? **A5**
 
