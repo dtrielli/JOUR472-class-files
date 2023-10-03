@@ -9,10 +9,6 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Instructor demonstration points to hit
-
-1.  Ensure students install refinr package and load it.
-2.  Show students how to download and install Open Refine and confirm install before they leave class.
 
 ## Chapter 22
 
