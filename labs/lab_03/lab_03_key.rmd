@@ -63,7 +63,7 @@ Q3. You're interested in examining the vendors paid for capital projects at the 
 A3. There are multiple duplicates in the results, and removing punctuation would be one way to narrow down the list. Another one would be to use mutate with case_when to standardize the vendor names.
 
 ```{r}
-md_payments |> 
+umd_capital <- md_payments |> 
   filter(agency_name == 'CAPITAL PROJECTS- UNIVERSITY OF MARYLAND') |> 
   group_by(vendor_name) |> 
   summarize(total = sum(amount)) |> 
