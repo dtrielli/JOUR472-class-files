@@ -33,7 +33,11 @@ To use the API, you need to [an API key from the Census Bureau](https://api.cens
 **Task** Replace YOUR KEY HERE in the codeblock below with your Census API Key (leave the quotemarks).
 
 ```{r echo=FALSE}
-#census_api_key("YOUR KEY HERE", install=TRUE)
+census_api_key("PASTEAPIKEYHERE", install=TRUE)
+```
+
+```{r}
+readRenviron("~/.Renviron")
 ```
 
 The `install=TRUE` part saves your key for future use.
@@ -46,7 +50,6 @@ So to give you some idea of how complicated the data is, let's pull up just one 
 
 ```{r}
 sf1 <- load_variables(2010, "sf1", cache = TRUE)
-View(sf1)
 ```
 
 Note: There are thousands of variables in SF1. That's not a typo. Open it in your environment by double clicking. As you scroll down, you'll get an idea of what you've got to choose from.
@@ -80,13 +83,12 @@ Let's take a peek at 2010.
 p10
 ```
 
-As you can see, we have a GEOID, NAME, then variable and value. Variable and value are going to be the same. Because those are named the same thing, to merge them together, we need to rename them. Remember how we used `rename` in the last lab? We're going to use it some more.
+As you can see, we have a GEOID, NAME, then variable and value. Because those are named the same thing on the different datasets we have, to merge them together, we need to rename them. Remember how we used `rename` in the last lab? We're going to use it some more.
 
 **Task** Run the following codeblock to rename the population total columns in each dataframe:
 
 ```{r}
 p10 |> select(GEOID, NAME, value) |> rename(Population2010=value) -> p10
-
 p00 |> select(GEOID, NAME, value) |> rename(Population2000=value) -> p00
 ```
 
@@ -106,11 +108,12 @@ And now we calculate the percent change.
 alldata |> mutate(change = ((Population2010-Population2000)/Population2000)*100) |> arrange(desc(change))
 ```
 
-You may be asking: hey, wasn't there a 2020 Census? Where's that data? The answer is that it's coming - the Census Bureau has a [schedule of releases](https://www.census.gov/programs-surveys/popest/about/schedule.html). There are some variables available:
+You may be asking: hey, wasn't there a 2020 Census? Where's that data? For the 2020 Census, not all data sets are available. But we can see some of them looking at the cd118 file from 2020. "cd118" stands for Congressional Distrcits 118, in reference to the [118th United States Congress](https://en.wikipedia.org/wiki/118th_United_States_Congress). That's because one of the first things that is done with Census data it's its Constitutional mandate: using the numbers of the Census to determine Congressional Districts.
+
+**Task** Run the following codeblock and look at the resulting variable.
 
 ```{r}
-pl <- load_variables(2020, "pl")
-View(pl)
+cd118 <- load_variables(2020, "cd118", cache = TRUE)
 ```
 
 ## The ACS
