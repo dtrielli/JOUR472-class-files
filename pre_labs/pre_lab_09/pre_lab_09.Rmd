@@ -107,6 +107,14 @@ In order to make a map, we need to be able to tell Datawrapper that a certain co
 ```{r}
 
 # calculate the total number of votes and Moore's percentage, saving it back to the md_gov_county dataframe
+md_gov_county <- md_gov_county |> clean_names()
+
+md_gov_county <- md_gov_county |>
+  mutate(
+    total_votes = cox + moore + lashar + wallace + write_ins,
+    pct_moore = (moore/total_votes)*100
+  )
+
 
 write_csv(md_gov_county, "data/md_gov_county.csv")
 ```
@@ -135,11 +143,11 @@ You'll see that the map currently is of the whole nation, and we only have Maryl
 
 But it's a little rough visually, so let's clean that up.
 
-**Task** Look for the "Show color legend" label and add a caption for the legend, which is the horizontal bar under the title. It represents the extent of the data from smallest number of loans to largest. Then click on the "Annotate" tab to add a title, description, data source and byline. The title should represent the headline, while the description should be a longer phrase that tells people what they are looking at.
+**Task** Look for the "Show color legend" label and add a caption for the legend, which is the horizontal bar under the title. It represents the extent of the data from smallest percentage of votes to largest. Then click on the "Annotate" tab to add a title, description, data source and byline. The title should represent the headline, while the description should be a longer phrase that tells people what they are looking at.
 
 That's better, but check out the tooltip by hovering over a county. It's not super helpful. Let's change the tooltip behavior to show the county name and a better-formatted number.
 
-**Task** Click the "Customize tooltips" button so it expands down. Change {{ fips_code }} to {{ county }} and {{ pctmoore }} to {{ FORMAT(pctmoore, "00.0%")}} **Answer** Describe the changes from the previous map
+**Task** Click the "Customize tooltips" button so it expands down. Change {{ fips_code }} to {{ county }} and {{ pctmoore }} to {{ FORMAT(pctmoore, "0.0%")}} **Answer** Describe the changes from the previous map
 
 **Task** Add a note that says that this data represents votes counted through Nov. 10 and an alternative description for screen readers. This should be a simple description of what your map shows. Experiment with the "Show labels" button, choosing the "by column" option for Type to display some or all of the county names.
 
