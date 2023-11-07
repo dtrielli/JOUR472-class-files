@@ -97,7 +97,7 @@ Let's create a choropleth map - one that shows variations between the percentage
 **Task** Run the following code to load the Maryland election results data.
 
 ```{r}
-md_gov_county <- read_csv("data/md_gov_county.csv")
+md_gov_county <- read_csv("data/md_gov_county.csv") |> clean_names()
 ```
 
 In order to make a map, we need to be able to tell Datawrapper that a certain column contains geographic information (besides the name of the county). The easiest way to do that for U.S. maps is to use something called a [FIPS Code](https://www.census.gov/programs-surveys/geography/guidance/geo-identifiers.html). You should read about them so you understand what they are, and think of them as a unique identifier for some geographical entity like a state or county. Our md_gov_county dataframe has a FIPS code for each county, but if you ever need one for a county, this is a solved problem thanks to the Tigris library that we used in pre_lab 9.
@@ -107,13 +107,6 @@ In order to make a map, we need to be able to tell Datawrapper that a certain co
 ```{r}
 
 # calculate the total number of votes and Moore's percentage, saving it back to the md_gov_county dataframe
-md_gov_county <- md_gov_county |> clean_names()
-
-md_gov_county <- md_gov_county |>
-  mutate(
-    total_votes = cox + moore + lashar + wallace + write_ins,
-    pct_moore = (moore/total_votes)*100
-  )
 
 
 write_csv(md_gov_county, "data/md_gov_county.csv")
