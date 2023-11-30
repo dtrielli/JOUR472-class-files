@@ -123,3 +123,13 @@ ggplot() +
   theme_minimal() +
   scale_fill_viridis_b(option="magma", trans='log')
 ```
+
+```{r}
+md_statewide <- read_csv("data/md_statewide_county.csv",
+                         col_types = cols(
+                           
+                           Cox = col_double(),
+                           Moore = col_double()
+                           
+                           )) |> clean_names()
+```
